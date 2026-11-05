@@ -70,10 +70,10 @@ button:disabled{opacity:.6;cursor:wait}
 
 /* Phones and narrow screens: film on top, panel below, still one screen */
 @media (max-width:820px){
-  .screen{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
-  .film{order:-1;aspect-ratio:16/9}
+  .screen{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
+  .film{order:-1}
   .panel{padding:18px 20px calc(16px + env(safe-area-inset-bottom))}
-  .inner{margin:auto 0;max-width:460px}
+  .inner{margin:0;max-width:460px}
   .logo{width:min(250px,68%)}
   .soon{font-size:22px;margin:-4px 0 12px 12%}
   h1{font-size:clamp(30px,8.6vw,40px)}
@@ -84,7 +84,7 @@ button:disabled{opacity:.6;cursor:wait}
   .links{margin-top:12px;font-size:12px}
   .film .watch{right:12px;bottom:12px;font-size:12px;padding:6px 12px}
 }
-@media (max-width:820px) and (max-height:620px){
+@media (max-width:820px) and (max-height:700px){
   .soon{display:none}
   .logo{margin-bottom:10px}
   .sub{display:none}
@@ -124,7 +124,7 @@ button:disabled{opacity:.6;cursor:wait}
 
   <section class="film" aria-label="Cuckoo Clock Bird, the first Oddbirds film">
     <video poster="img/cuckoo-clock-poster-1080.jpg" autoplay muted loop playsinline preload="auto" aria-label="A felt bird in goggles bursts out of a cuckoo clock and lands on a yarn tree">
-      <source src="img/cuckoo-clock.mp4" type="video/mp4" media="(max-width: 820px)">
+      <source src="img/cuckoo-clock-tall.mp4" type="video/mp4" media="(max-width: 820px)">
       <source src="img/cuckoo-clock-1080.mp4" type="video/mp4">
     </video>
     <a class="watch" href="https://www.tiktok.com/@oddbirds_theshow">Watch on TikTok →</a>
@@ -132,6 +132,9 @@ button:disabled{opacity:.6;cursor:wait}
 </main>
 
 <script>
+// Phones play the tall cut, so give them the tall poster too.
+if (matchMedia("(max-width: 820px)").matches) document.querySelector(".film video").poster = "img/cuckoo-clock-tall-poster.jpg";
+
 /*
   Waitlist hookup: the Oddbirds Kit account (separate from Blacksmith).
   KIT_FORM_ID is the number in the Kit form's URL (app.kit.com/forms/<number>/...).
