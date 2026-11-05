@@ -1,0 +1,71 @@
+# Keeps the tiny "minted / total" number in the site footer up to date.
+# Every 30 minutes it reads the Oddbirds contract on Ethereum and writes the
+# numbers to count.json on the `data` branch, which the home page reads.
+# No keys needed: it uses public Ethereum endpoints.
+name: Update mint count
+
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mint-counter
+  cancel-in-progress: false
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read minted and total supply from the contract
+        env:
+          CONTRACT: "0x6683f1165b06241a48cc3cc656bf75c6582e1a37"
+          FALLBACK_SUPPLY: "10006"
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          RPCS="https://ethereum-rpc.publicnode.com https://eth.llamarpc.com https://rpc.ankr.com/eth https://cloudflare-eth.com"
+
+          # eth_call a no-argument function by its 4-byte selector; prints the result as a decimal, or nothing.
+          call() {
+            for rpc in $RPCS; do
+              out=$(curl -sS -m 15 -X POST "$rpc" -H 'content-type: application/json' \
+                -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"eth_call\",\"params\":[{\"to\":\"$CONTRACT\",\"data\":\"0x$1\"},\"latest\"]}" 2>/dev/null || true)
+              hex=$(printf '%s' "$out" | jq -r '.result // empty' 2>/dev/null || true)
+              if [[ "$hex" =~ ^0x[0-9a-fA-F]{64}$ ]]; then
+                python3 -c "print(int('$hex',16))"
+                return 0
+              fi
+            done
+            return 0
+          }
+
+          minted=$(call 18160ddd)                      # totalSupply()
+          if ! [[ "$minted" =~ ^[0-9]+$ ]]; then
+            echo "::error::Couldn't read totalSupply() from $CONTRACT on any endpoint."
+            exit 1
+          fi
+          supply=$(call d5abeb01)                      # maxSupply()
+          [[ "$supply" =~ ^[1-9][0-9]*$ ]] || supply=$(call 32cb6b0c)   # MAX_SUPPLY()
+          [[ "$supply" =~ ^[1-9][0-9]*$ ]] || { echo "No max supply function found; using $FALLBACK_SUPPLY."; supply=$FALLBACK_SUPPLY; }
+          echo "Minted: $minted of $supply"
+
+          current=$(gh api "repos/${GITHUB_REPOSITORY}/contents/count.json?ref=data" 2>/dev/null || echo '{}')
+          sha=$(printf '%s' "$current" | jq -r '.sha // empty')
+          old=$( (printf '%s' "$current" | jq -r '.content // empty' | base64 -d | jq -c '[.minted,.supply]') 2>/dev/null || true)
+          if [ "$old" = "[$minted,$supply]" ]; then
+            echo "No change since last time."
+            exit 0
+          fi
+
+          body=$(jq -cn --argjson m "$minted" --argjson s "$supply" --arg t "$(date -u +%Y-%m-%dT%H:%M:%SZ)" '{minted:$m, supply:$s, updated:$t}')
+          args=(-X PUT "repos/${GITHUB_REPOSITORY}/contents/count.json"
+                -f message="Mint count: ${minted} / ${supply}"
+                -f branch=data
+                -f content="$(printf '%s\n' "$body" | base64 -w0)")
+          [ -n "$sha" ] && args+=(-f sha="$sha")
+          gh api "${args[@]}" --jq '.commit.sha' >/dev/null
+          echo "count.json updated."
