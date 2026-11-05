@@ -4,9 +4,8 @@
 # page reads. The Kit key lives only in the KIT_API_KEY repository secret.
 name: Update waitlist counter
 
+# Switched off 2026-11-05: the page no longer shows a counter. Manual runs only.
 on:
-  schedule:
-    - cron: "7,37 * * * *"
   workflow_dispatch:
 
 permissions:
