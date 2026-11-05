@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Oddbirds: get the word first</title>
-<meta name="description" content="A flock of 10,006 birds just escaped the asylum. Join the waitlist.">
+<meta name="description" content="10,006 birds just flew the coop. Join the waitlist.">
 <meta property="og:title" content="Oddbirds: get the word first">
-<meta property="og:description" content="A flock of 10,006 birds just escaped the asylum. Join the waitlist.">
+<meta property="og:description" content="10,006 birds just flew the coop. Join the waitlist.">
 <meta property="og:image" content="https://oddbirdstheshow.github.io/img/og.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -42,7 +42,11 @@ em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:0}
 .logo{width:100%;height:auto;margin-left:-3%}
 .soon{font-family:var(--hand);font-size:clamp(22px,3.2vh,30px);transform:rotate(-4deg);transform-origin:left;margin:-2px 0 clamp(18px,4vh,40px) 14%;line-height:1}
 h1{font-size:clamp(32px,min(5.6vh,3.6vw),52px);font-weight:800;letter-spacing:-.035em;line-height:1;margin:0}
-.sub{font-size:clamp(15px,1.9vh,17px);margin:clamp(12px,2.2vh,20px) 0 clamp(20px,3.6vh,32px);max-width:30em;color:#2b2918}
+.sub{font-size:clamp(15px,1.9vh,17px);margin:clamp(12px,2.2vh,20px) 0 0;max-width:30em;color:#2b2918}
+.atlarge{display:inline-flex;align-items:center;gap:8px;margin:clamp(12px,2vh,18px) 0 clamp(16px,3vh,26px);padding:6px 12px 6px 10px;border:1.5px solid var(--ink);border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.02em;text-transform:uppercase}
+.atlarge b{font-variant-numeric:tabular-nums;font-weight:800}
+.atlarge .dot{width:8px;height:8px;border-radius:50%;background:#FF5A1F;box-shadow:0 0 0 0 rgba(255,90,31,.6);animation:ping 1.8s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,90,31,.6)}80%,100%{box-shadow:0 0 0 8px rgba(255,90,31,0)}}
 
 form{position:relative}
 .field{display:flex;gap:8px;background:#fff;border-radius:14px;padding:6px;box-shadow:0 18px 40px -22px rgba(60,50,0,.45)}
@@ -90,7 +94,7 @@ button:disabled{opacity:.6;cursor:wait}
   .sub{display:none}
   h1{margin-bottom:12px}
 }
-@media (prefers-reduced-motion:reduce){button{transition:none}}
+@media (prefers-reduced-motion:reduce){button{transition:none}.atlarge .dot{animation:none}}
 </style>
 </head>
 <body>
@@ -101,7 +105,8 @@ button:disabled{opacity:.6;cursor:wait}
       <p class="soon" aria-hidden="true">Coming soon</p>
 
       <h1>Get the word <em>before anyone else.</em></h1>
-      <p class="sub">A flock of 10,006 birds just escaped the asylum. Join the waitlist and be first in line if they ever leave the screen.</p>
+      <p class="sub">10,006 birds just flew the coop. Join the waitlist and be first to know where they land.</p>
+      <p class="atlarge" aria-live="polite"><span class="dot" aria-hidden="true"></span><b id="at-large">10,006</b> <span id="at-large-label">birds still at large</span></p>
 
       <form class="waitlist" novalidate>
         <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
@@ -117,7 +122,8 @@ button:disabled{opacity:.6;cursor:wait}
         <a href="https://www.tiktok.com/@oddbirds_theshow">TikTok</a>
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
-        <a href="terms.html" title="Oddbirds Studio is our internal tool for sending our own films to our own TikTok drafts. It isn't offered to other users.">About Oddbirds Studio</a>
+        <a href="terms.html" title="Oddbirds Studio is our internal tool for sending our own films to our own TikTok drafts. It isn't offered to other users.">Studio</a>
+        <a href="https://opensea.io/oddbirds">The flock</a>
       </nav>
     </div>
   </section>
@@ -132,6 +138,20 @@ button:disabled{opacity:.6;cursor:wait}
 </main>
 
 <script>
+// "Birds still at large": 10,006 minus confirmed waitlist sign-ups. The number comes from
+// count.json on the data branch, which a GitHub workflow refreshes from Kit every 30 minutes.
+const FLOCK = 10006;
+fetch("https://raw.githubusercontent.com/oddbirdstheshow/oddbirdstheshow.github.io/data/count.json", { cache: "no-store" })
+  .then(r => r.ok ? r.json() : null)
+  .then(d => {
+    if (!d || !Number.isFinite(d.spotted)) return;
+    const left = Math.max(0, FLOCK - d.spotted);
+    document.getElementById("at-large").textContent = left.toLocaleString("en-US");
+    if (left === 0) document.getElementById("at-large-label").textContent = "at large. Every bird's been spotted";
+    else if (left === 1) document.getElementById("at-large-label").textContent = "bird still at large";
+  })
+  .catch(() => {});
+
 // Phones play the tall cut, so give them the tall poster too.
 if (matchMedia("(max-width: 820px)").matches) document.querySelector(".film video").poster = "img/cuckoo-clock-tall-poster.jpg";
 
