@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Oddbirds: get the word first</title>
-<meta name="description" content="10,006 birds just flew the coop. Join the waitlist.">
+<meta name="description" content="10,006 birds just flew the coop. No two alike. Get on the list.">
 <meta property="og:title" content="Oddbirds: get the word first">
-<meta property="og:description" content="10,006 birds just flew the coop. Join the waitlist.">
+<meta property="og:description" content="10,006 birds just flew the coop. No two alike. Get on the list.">
 <meta property="og:image" content="https://oddbirdstheshow.github.io/img/og.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -102,7 +102,7 @@ button:disabled{opacity:.6;cursor:wait}
       <p class="soon" aria-hidden="true">Coming soon</p>
 
       <h1>Get the word <em>before anyone else.</em></h1>
-      <p class="sub">10,006 birds just flew the coop. Join the waitlist and be first to know where they land.</p>
+      <p class="sub">10,006 birds just flew the coop. No two alike. Get on the list and hear first where they land.</p>
 
       <form class="waitlist" novalidate>
         <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
@@ -110,7 +110,7 @@ button:disabled{opacity:.6;cursor:wait}
           <input type="email" name="email_address" placeholder="you@email.com" autocomplete="email" required aria-label="Email address">
           <button type="submit">Hollerrr!</button>
         </div>
-        <p class="fine">Free. No spam. Unsubscribe any time.</p>
+        <p class="fine">Free. One email when it matters. Leave anytime.</p>
         <div class="msg" role="status" aria-live="polite"></div>
       </form>
 
@@ -177,7 +177,7 @@ document.querySelectorAll("form.waitlist").forEach(form => {
       const data = await res.json().catch(() => ({}));
       if (!res.ok || (data.status && data.status !== "success")) throw new Error(res.status);
       form.classList.add("done");
-      show("You're nearly on the list. Check your inbox and confirm, and we'll save you a bird.", true);
+      show("Nearly there. Confirm in your inbox and you're on the list.", true);
     } catch (err) {
       btn.disabled = false; btn.textContent = label;
       show("Something went wrong on our end. Please try again in a minute.", false);
