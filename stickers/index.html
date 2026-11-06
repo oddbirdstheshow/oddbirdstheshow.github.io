@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Oddbirds stickers</title>
+<meta name="description" content="Free Oddbirds stickers for your phone. Save one, long-press it, tap Add Sticker.">
+<meta property="og:title" content="Oddbirds stickers">
+<meta property="og:description" content="Free stickers of the birds. Save one, long-press it, tap Add Sticker.">
+<meta property="og:image" content="https://oddbirdstheshow.github.io/stickers/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FEF104">
+<link rel="icon" href="../icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --yellow:#FEF104; --ink:#141414; --teal:#1D6B61; --mute:#4a4630;
+  --sans:"Inter Tight",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;
+  --hand:"Caveat Brush","Comic Sans MS",cursive;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--yellow);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+em{font-family:var(--serif);font-style:italic;font-weight:400}
+.wrap{max-width:1180px;margin:0 auto;padding:clamp(20px,4vw,48px) max(20px,env(safe-area-inset-right)) 48px max(20px,env(safe-area-inset-left))}
+
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:clamp(24px,4vw,40px)}
+.logo{width:min(320px,62vw);height:auto;margin-left:-6px}
+.home{font-size:14px;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(20,20,20,.3)}
+h1{font-size:clamp(36px,6vw,68px);font-weight:800;letter-spacing:-.035em;line-height:.98;margin:0}
+.hand{font-family:var(--hand);font-size:clamp(22px,3vw,30px);transform:rotate(-3deg);display:inline-block;margin:10px 0 0 4px}
+.lede{max-width:34em;font-size:clamp(16px,1.8vw,18px);margin:16px 0 0;color:#2b2918}
+
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.6vw,20px);margin:clamp(28px,4vw,44px) 0}
+.card{background:#fff;border-radius:22px;padding:10px 10px 14px;box-shadow:0 18px 40px -26px rgba(60,50,0,.55);display:flex;flex-direction:column;gap:10px}
+.card img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:14px;-webkit-touch-callout:default}
+.card .who{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:0 4px}
+.card b{font-size:16px}
+.card span{font-family:var(--hand);font-size:22px;line-height:1}
+.save{display:flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:700;font-size:15px;border:0;border-radius:12px;padding:12px;background:var(--ink);color:#fff;cursor:pointer;text-decoration:none}
+.save:hover{background:#000}
+.all{display:flex;justify-content:center;margin-bottom:clamp(36px,5vw,56px)}
+.all a{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:12px 22px;border-radius:12px;font-weight:700;text-decoration:none}
+.all a:hover{background:var(--ink);color:#fff}
+
+.how{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:start}
+.how h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.02em;margin:0 0 14px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start;background:rgba(255,255,255,.55);border-radius:14px;padding:12px 14px;counter-increment:s}
+.steps li::before{content:counter(s);width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:800}
+.android{font-size:14px;color:var(--mute);margin:14px 0 0}
+
+.list{background:#fff;border-radius:22px;padding:20px;box-shadow:0 18px 40px -26px rgba(60,50,0,.55)}
+.list h3{font-size:20px;margin:0 0 6px;letter-spacing:-.01em}
+.list p{margin:0 0 12px;font-size:15px;color:#2b2918}
+.field{display:flex;gap:8px;background:#f4f1e6;border-radius:12px;padding:5px}
+.field input{flex:1;min-width:0;font:inherit;font-size:16px;padding:10px;border:0;background:transparent;color:var(--ink)}
+.field input:focus{outline:none}
+.field:focus-within{box-shadow:0 0 0 2px var(--ink)}
+.field button{font:inherit;font-weight:700;font-size:15px;border:0;border-radius:9px;padding:10px 16px;background:var(--ink);color:#fff;cursor:pointer;white-space:nowrap}
+.msg{display:none;margin-top:10px;font-size:14px;font-weight:600}
+.msg.ok{display:block;color:var(--teal)} .msg.err{display:block;color:#a33a10}
+.done .field{display:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+footer{margin-top:clamp(36px,5vw,56px);display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+footer a{text-decoration:none;border-bottom:1px solid rgba(20,20,20,.25)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px;z-index:9;max-width:calc(100% - 32px);text-align:center}
+
+@media (max-width:900px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid .card:last-child{grid-column:1/-1;max-width:calc(50% - 6px);justify-self:center;width:100%}
+  .how{grid-template-columns:minmax(0,1fr)}
+}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <a href="../"><img class="logo" src="../img/logo-felt.jpg" alt="Oddbirds" width="1400" height="422"></a>
+      <h1>Stickers. <em>Free.</em></h1>
+      <span class="hand">Take them. Text them. Stick them on things.</span>
+      <p class="lede">Five of the birds, one feeling each. Save one to your phone, long-press it, tap Add Sticker, and it's in your sticker drawer for good.</p>
+    </div>
+    <a class="home" href="../">← Back to Oddbirds</a>
+  </header>
+
+  <section class="grid" aria-label="The stickers">
+    <figure class="card" style="margin:0"><img src="img/oddbirds-gus-lol-small.jpg" alt="Gus laughing so hard he cries" width="520" height="520"><div class="who"><b>Gus</b><span>LOL</span></div><a class="save" href="img/oddbirds-gus-lol.jpg" download data-file="img/oddbirds-gus-lol.jpg" data-name="oddbirds-gus-lol.jpg">Save</a></figure>
+    <figure class="card" style="margin:0"><img src="img/oddbirds-pip-love-small.jpg" alt="Pip in love, blushing, with hearts" width="520" height="520"><div class="who"><b>Pip</b><span>Love</span></div><a class="save" href="img/oddbirds-pip-love.jpg" download data-file="img/oddbirds-pip-love.jpg" data-name="oddbirds-pip-love.jpg">Save</a></figure>
+    <figure class="card" style="margin:0"><img src="img/oddbirds-norm-omg-small.jpg" alt="Norm the worm screaming" width="520" height="520"><div class="who"><b>Norm</b><span>OMG</span></div><a class="save" href="img/oddbirds-norm-omg.jpg" download data-file="img/oddbirds-norm-omg.jpg" data-name="oddbirds-norm-omg.jpg">Save</a></figure>
+    <figure class="card" style="margin:0"><img src="img/oddbirds-recruiter-thumbs-up-small.jpg" alt="The Recruiter winking with a thumbs-up" width="520" height="520"><div class="who"><b>The Recruiter</b><span>Sure!</span></div><a class="save" href="img/oddbirds-recruiter-thumbs-up.jpg" download data-file="img/oddbirds-recruiter-thumbs-up.jpg" data-name="oddbirds-recruiter-thumbs-up.jpg">Save</a></figure>
+    <figure class="card" style="margin:0"><img src="img/oddbirds-regular-sob-small.jpg" alt="A Regular sobbing into a tissue" width="520" height="520"><div class="who"><b>A Regular</b><span>Monday</span></div><a class="save" href="img/oddbirds-regular-sob.jpg" download data-file="img/oddbirds-regular-sob.jpg" data-name="oddbirds-regular-sob.jpg">Save</a></figure>
+  </section>
+  <div class="all"><a href="oddbirds-stickers.zip" download>Download all five (zip)</a></div>
+
+  <section class="how">
+    <div>
+      <h2>Make it a sticker (iPhone)</h2>
+      <ol class="steps">
+        <li><span><b>Tap Save</b>, then Save Image. It goes to your Photos.</span></li>
+        <li><span><b>Open it in Photos</b> and press and hold on the bird until it lifts off the white.</span></li>
+        <li><span><b>Tap Add Sticker.</b> Done: it's in your stickers in Messages, WhatsApp and the keyboard, on all your Apple devices.</span></li>
+      </ol>
+      <p class="android"><b>Android:</b> tap Save, then send it from your photos like any picture. Samsung Keyboard and some others can turn saved pictures into stickers too.</p>
+    </div>
+    <form class="list waitlist" novalidate>
+      <h3>Want the next ones first?</h3>
+      <p>More birds, more stickers. Get on the list and we'll send them before anyone else.</p>
+      <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      <div class="field">
+        <input type="email" name="email_address" placeholder="you@email.com" autocomplete="email" required aria-label="Email address">
+        <button type="submit">Hollerrr!</button>
+      </div>
+      <div class="msg" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <footer>
+    <a href="../">Oddbirds</a>
+    <a href="https://www.tiktok.com/@oddbirds_theshow">TikTok</a>
+    <a href="../privacy.html">Privacy</a>
+    <a href="../terms.html">Terms</a>
+    <span>Free for personal use. Please don't sell them.</span>
+  </footer>
+</div>
+
+<script>
+// Save: on phones, open the share sheet with the image so "Save Image" puts it straight in Photos.
+// Everywhere else, fall back to a normal download.
+const toast = t => { const el = document.createElement("div"); el.className = "toast"; el.textContent = t; document.body.append(el); setTimeout(() => el.remove(), 3500); };
+document.querySelectorAll("a.save").forEach(a => {
+  a.addEventListener("click", async e => {
+    if (!navigator.canShare) return;                       // desktop: plain download
+    e.preventDefault();
+    try {
+      const blob = await (await fetch(a.dataset.file)).blob();
+      const file = new File([blob], a.dataset.name, { type: "image/jpeg" });
+      if (navigator.canShare({ files: [file] })) { await navigator.share({ files: [file] }); return; }
+      location.href = a.dataset.file;
+    } catch (err) {
+      if (err && err.name === "AbortError") return;           // they closed the share sheet
+      location.href = a.dataset.file;                         // opens the image: press and hold it to save
+      toast("Press and hold the picture, then Save to Photos.");
+    }
+  });
+});
+
+// Waitlist: the same Oddbirds Kit form as the home page.
+const KIT_FORM_ID = "10149386";
+const WAITLIST_ENDPOINT = `https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`;
+document.querySelectorAll("form.waitlist").forEach(form => {
+  const msg = form.querySelector(".msg"), btn = form.querySelector("button"), label = btn.textContent;
+  const show = (t, ok) => { msg.textContent = t; msg.className = "msg " + (ok ? "ok" : "err"); };
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    if (form.website.value) return;
+    const email = form.email_address.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { show("That email doesn't look quite right.", false); return; }
+    btn.disabled = true; btn.textContent = "Saving…";
+    try {
+      const res = await fetch(WAITLIST_ENDPOINT, { method: "POST", body: new URLSearchParams({ email_address: email }), headers: { "Accept": "application/json" } });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || (data.status && data.status !== "success")) throw new Error(res.status);
+      form.classList.add("done");
+      show("Nearly there. Confirm in your inbox and you're on the list.", true);
+    } catch (err) {
+      btn.disabled = false; btn.textContent = label;
+      show("Something went wrong on our end. Please try again in a minute.", false);
+    }
+  });
+});
+</script>
+</body>
+</html>
