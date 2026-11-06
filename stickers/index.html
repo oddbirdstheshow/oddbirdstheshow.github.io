@@ -48,7 +48,9 @@ h1{font-size:clamp(36px,6vw,68px);font-weight:800;letter-spacing:-.035em;line-he
 .all a{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:12px 22px;border-radius:12px;font-weight:700;text-decoration:none}
 .all a:hover{background:var(--ink);color:#fff}
 
-.how{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:start}
+.how{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.9fr);gap:clamp(16px,2.4vw,32px);align-items:start}
+.how h2 small{display:block;font-size:14px;font-weight:500;color:var(--mute);letter-spacing:0;margin-top:4px}
+.tip{font-size:13.5px;color:var(--mute);margin:12px 0 0}
 .how h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.02em;margin:0 0 14px}
 .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
 .steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start;background:rgba(255,255,255,.55);border-radius:14px;padding:12px 14px;counter-increment:s}
@@ -72,6 +74,10 @@ footer{margin-top:clamp(36px,5vw,56px);display:flex;gap:18px;flex-wrap:wrap;font
 footer a{text-decoration:none;border-bottom:1px solid rgba(20,20,20,.25)}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px;z-index:9;max-width:calc(100% - 32px);text-align:center}
 
+@media (max-width:1000px){
+  .how{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .how .list{grid-column:1/-1}
+}
 @media (max-width:900px){
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .grid .card:last-child{grid-column:1/-1;max-width:calc(50% - 6px);justify-self:center;width:100%}
@@ -87,7 +93,7 @@ footer a{text-decoration:none;border-bottom:1px solid rgba(20,20,20,.25)}
       <a href="../"><img class="logo" src="../img/logo-felt.jpg" alt="Oddbirds" width="1400" height="422"></a>
       <h1>Stickers. <em>Free.</em></h1>
       <span class="hand">Take them. Text them. Stick them on things.</span>
-      <p class="lede">Five of the birds, one feeling each. Save one to your phone, long-press it, tap Add Sticker, and it's in your sticker drawer for good.</p>
+      <p class="lede">Five of the birds, one feeling each. Save them to your phone and turn them into stickers in a few taps, on iPhone and Android. How to do it is just below.</p>
     </div>
     <a class="home" href="../">← Back to Oddbirds</a>
   </header>
@@ -103,13 +109,22 @@ footer a{text-decoration:none;border-bottom:1px solid rgba(20,20,20,.25)}
 
   <section class="how">
     <div>
-      <h2>Make it a sticker (iPhone)</h2>
+      <h2>iPhone <small>iOS 17 or newer</small></h2>
       <ol class="steps">
-        <li><span><b>Tap Save</b>, then Save Image. It goes to your Photos.</span></li>
+        <li><span><b>Tap Save</b> under a sticker, then <b>Save Image</b>. It goes to your Photos.</span></li>
         <li><span><b>Open it in Photos</b> and press and hold on the bird until it lifts off the white.</span></li>
-        <li><span><b>Tap Add Sticker.</b> Done: it's in your stickers in Messages, WhatsApp and the keyboard, on all your Apple devices.</span></li>
+        <li><span><b>Tap Add Sticker.</b> It's now in your stickers in Messages, WhatsApp and the keyboard, on all your Apple devices.</span></li>
       </ol>
-      <p class="android"><b>Android:</b> tap Save, then send it from your photos like any picture. Samsung Keyboard and some others can turn saved pictures into stickers too.</p>
+      <p class="tip">To send one: in Messages, tap <b>+</b>, then <b>Stickers</b>.</p>
+    </div>
+    <div>
+      <h2>Android <small>with WhatsApp, on any Android phone</small></h2>
+      <ol class="steps">
+        <li><span><b>Tap Save</b> under a sticker. It goes to your Downloads or Gallery.</span></li>
+        <li><span><b>In WhatsApp,</b> open any chat, tap the sticker icon in the message box, then <b>Create</b>.</span></li>
+        <li><span><b>Pick the bird you saved.</b> WhatsApp cuts it out for you. Tap <b>Send</b> and it stays in your stickers.</span></li>
+      </ol>
+      <p class="tip"><b>Samsung Galaxy:</b> open it in Gallery, press and hold the bird, tap <b>Save as sticker</b>. It shows up in Samsung Keyboard's stickers.</p>
     </div>
     <form class="list waitlist" novalidate>
       <h3>Want the next ones first?</h3>
